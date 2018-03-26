@@ -1,4 +1,4 @@
-package mypackage;
+package com.mypackage;
 
 import java.text.DateFormat;
 import java.text.ParseException;
@@ -11,6 +11,9 @@ import java.util.List;
 import java.util.Map;
 import java.util.Map.Entry;
 import java.util.TreeMap;
+
+import com.mypackage.bo.Instruction;
+import com.mypackage.bo.OutputData;
 
 public class Main {
 
@@ -31,7 +34,8 @@ public class Main {
 		List<Instruction> instructions;
 		try {
 			instructions = loadData();
-			elab(instructions);
+			OutputData outputData = elab(instructions);
+			printOutputData(outputData);
 		} catch (ParseException e) {
 			System.out.println("There was an error parsing the data");
 			e.printStackTrace();
@@ -43,7 +47,7 @@ public class Main {
 	private static List<Instruction> loadData() throws ParseException {
 		
 		List<Instruction> instructions = new ArrayList<>();
-
+ 
 		//Expected output:
 		//
 		//		=============== Amount in USD settled incoming everyday
@@ -85,7 +89,7 @@ public class Main {
 		return instructions;
 	} 
 	
-	private static void elab(List<Instruction> instructions) {
+	public static OutputData elab(List<Instruction> instructions) {
 		Map<Date, Double> settledIncomingByDate = new HashMap<>();
 		Map<Date, Double> settledOutgoingByDate = new HashMap<>();
 		Map<String, Double> settledIncomingByEntity = new HashMap<>();
@@ -134,12 +138,26 @@ public class Main {
 				settledOutgoingByEntity.put(entity, totAmountByEntity+amount);
 			}
 		}
+		
+		
+		//sort
+		settledIncomingByDate = new TreeMap<>(settledIncomingByDate);
+		settledOutgoingByDate = new TreeMap<>(settledOutgoingByDate);
+		settledIncomingByEntity = sortByValue(settledIncomingByEntity, false);
+		settledOutgoingByEntity = sortByValue(settledOutgoingByEntity, false);
 
-		printSettledIncomingByDate(settledIncomingByDate);
-		printSettledOutgoingByDatee(settledOutgoingByDate);
-		printSettledIncomingByEntity(settledIncomingByEntity);
-		printSettledOutgoingByEntity(settledOutgoingByEntity);
+		return new OutputData(settledIncomingByDate, settledOutgoingByDate,
+				settledIncomingByEntity, settledOutgoingByEntity);
 	}
+
+	
+	private static void printOutputData(OutputData outputData) {
+		printSettledIncomingByDate(outputData.getSettledIncomingByDate());
+		printSettledOutgoingByDatee(outputData.getSettledOutgoingByDate());
+		printSettledIncomingByEntity(outputData.getSettledIncomingByEntity());
+		printSettledOutgoingByEntity(outputData.getSettledOutgoingByEntity());
+	}
+	
 
 
 	private static void printSettledIncomingByDate(Map<Date, Double> settledIncomingByDate) {
@@ -154,7 +172,6 @@ public class Main {
 		double amount = 0.0;
 		System.out.println(String.format("=============== Amount in USD settled %s everyday", direction));
 		System.out.println(String.format("%s, %s", "date", "amount"));		
-		settledByDate = new TreeMap<>(settledByDate);
 		for (Date date : settledByDate.keySet()) {
 			amount = settledByDate.get(date);
 			System.out.println(String.format("%s, %s", dateFormat.format(date), amount));
@@ -174,7 +191,6 @@ public class Main {
 		int rank = 0;
 		System.out.println(String.format("=============== Ranking of entities based on %s amount", direction));
 		System.out.println(String.format("%s, %s, %s", "rank", "entity", "amount"));		
-		settledByEntity = sortByValue(settledByEntity, false);
 		for (String _entity : settledByEntity.keySet()) {
 			++rank;
 			amount = settledByEntity.get(_entity);

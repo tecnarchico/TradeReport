@@ -1,4 +1,4 @@
-package mypackage;
+package com.mypackage.bo;
 
 import java.util.Calendar;
 import java.util.Date;
