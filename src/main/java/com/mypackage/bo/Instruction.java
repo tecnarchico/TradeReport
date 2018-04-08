@@ -59,7 +59,7 @@ public class Instruction {
 		cal.setTime(settlementDate);
 		int dayOfWeek = cal.get(Calendar.DAY_OF_WEEK);
 		
-		if (currency.equals(Currency.AED) || currency.equals(Currency.SAR)) {
+		if (currency == Currency.AED || currency == Currency.SAR) {
 			if (dayOfWeek == Calendar.FRIDAY) {
 				cal.add(Calendar.DATE, 2);
 			} else if (dayOfWeek == Calendar.SATURDAY) {

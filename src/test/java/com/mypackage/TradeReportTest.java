@@ -1,15 +1,13 @@
 package com.mypackage;
 
+import static com.mypackage.Util.dateFormat;
 import static org.junit.Assert.assertEquals;
 
-import java.text.DateFormat;
 import java.text.ParseException;
-import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
 
-import org.junit.Before;
 import org.junit.Test;
 
 import com.mypackage.bo.Currency;
@@ -18,15 +16,7 @@ import com.mypackage.bo.OutputData;
 
 public class TradeReportTest {
 
-	private DateFormat dateFormat;
 
-	@Before
-	public void setUp() throws Exception {
-		
-		dateFormat = new SimpleDateFormat("dd/MMM/yyyy");
-
-	}
-	
 	@Test
 	public void testSettlementDate1() throws ParseException {
 		Instruction instruction = new Instruction("foo", true, 0.50, Currency.SGP, dateFormat.parse("23/Mar/2016"), dateFormat.parse("23/Mar/2018"), 200, 100.25);
