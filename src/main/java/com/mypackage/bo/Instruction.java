@@ -5,20 +5,16 @@ import java.util.Date;
 
 public class Instruction {
 
-	public final static String AED = "AED";
-	public final static String SGP = "SGP";
-	public final static String SAR = "SAR";
-	
 	private String entity;
 	private boolean buy;
 	private double agreedFx;
-	private String currency;
+	private Currency currency;
 	private Date instructionDate;
 	private Date settlementDate;
 	private int units;
 	private double pricePerUnit;
 	
-	public Instruction(String entity, boolean buy, double agreedFx, String currency, Date instructionDate,
+	public Instruction(String entity, boolean buy, double agreedFx, Currency currency, Date instructionDate,
 			Date settlementDate, int units, double pricePerUnit) {
 		
 		super();
@@ -63,7 +59,7 @@ public class Instruction {
 		cal.setTime(settlementDate);
 		int dayOfWeek = cal.get(Calendar.DAY_OF_WEEK);
 		
-		if (currency.equals(AED) || currency.equals(SAR)) {
+		if (currency.equals(Currency.AED) || currency.equals(Currency.SAR)) {
 			if (dayOfWeek == Calendar.FRIDAY) {
 				cal.add(Calendar.DATE, 2);
 			} else if (dayOfWeek == Calendar.SATURDAY) {

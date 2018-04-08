@@ -12,6 +12,7 @@ import java.util.Map;
 import org.junit.Before;
 import org.junit.Test;
 
+import com.mypackage.bo.Currency;
 import com.mypackage.bo.Instruction;
 import com.mypackage.bo.OutputData;
 
@@ -28,50 +29,50 @@ public class TradeReportTest {
 	
 	@Test
 	public void testSettlementDate1() throws ParseException {
-		Instruction instruction = new Instruction("foo", true, 0.50, Instruction.SGP, dateFormat.parse("23/Mar/2016"), dateFormat.parse("23/Mar/2018"), 200, 100.25);
+		Instruction instruction = new Instruction("foo", true, 0.50, Currency.SGP, dateFormat.parse("23/Mar/2016"), dateFormat.parse("23/Mar/2018"), 200, 100.25);
 		assertEquals(instruction.getSettlementDate(), dateFormat.parse("23/Mar/2018"));
 	}
 	
 	@Test
 	public void testSettlementDate2() throws ParseException {
-		Instruction instruction = new Instruction("foo", true, 0.50, Instruction.SGP, dateFormat.parse("23/Mar/2016"), dateFormat.parse("24/Mar/2018"), 200, 100.25);
+		Instruction instruction = new Instruction("foo", true, 0.50, Currency.SGP, dateFormat.parse("23/Mar/2016"), dateFormat.parse("24/Mar/2018"), 200, 100.25);
 		assertEquals(instruction.getSettlementDate(), dateFormat.parse("26/Mar/2018"));
 	}
 	
 	@Test
 	public void testSettlementDate3() throws ParseException {
-		Instruction instruction = new Instruction("foo", true, 0.50, Instruction.SGP, dateFormat.parse("23/Mar/2016"), dateFormat.parse("25/Mar/2018"), 200, 100.25);
+		Instruction instruction = new Instruction("foo", true, 0.50, Currency.SGP, dateFormat.parse("23/Mar/2016"), dateFormat.parse("25/Mar/2018"), 200, 100.25);
 		assertEquals(instruction.getSettlementDate(), dateFormat.parse("26/Mar/2018"));
 	}
 	
 	@Test
 	public void testSettlementDate4() throws ParseException {
-		Instruction instruction = new Instruction("foo", true, 0.50, Instruction.SGP, dateFormat.parse("23/Mar/2016"), dateFormat.parse("26/Mar/2018"), 200, 100.25);
+		Instruction instruction = new Instruction("foo", true, 0.50, Currency.SGP, dateFormat.parse("23/Mar/2016"), dateFormat.parse("26/Mar/2018"), 200, 100.25);
 		assertEquals(instruction.getSettlementDate(), dateFormat.parse("26/Mar/2018"));
 	}
 	
 	
 	@Test
 	public void testSettlementDate5() throws ParseException {
-		Instruction instruction = new Instruction("foo", true, 0.50, Instruction.AED, dateFormat.parse("23/Mar/2016"), dateFormat.parse("22/Mar/2018"), 200, 100.25);
+		Instruction instruction = new Instruction("foo", true, 0.50, Currency.AED, dateFormat.parse("23/Mar/2016"), dateFormat.parse("22/Mar/2018"), 200, 100.25);
 		assertEquals(instruction.getSettlementDate(), dateFormat.parse("22/Mar/2018"));
 	}
 	
 	@Test
 	public void testSettlementDate6() throws ParseException {
-		Instruction instruction = new Instruction("foo", true, 0.50, Instruction.AED, dateFormat.parse("23/Mar/2016"), dateFormat.parse("23/Mar/2018"), 200, 100.25);
+		Instruction instruction = new Instruction("foo", true, 0.50, Currency.AED, dateFormat.parse("23/Mar/2016"), dateFormat.parse("23/Mar/2018"), 200, 100.25);
 		assertEquals(instruction.getSettlementDate(), dateFormat.parse("25/Mar/2018"));
 	}
 	
 	@Test
 	public void testSettlementDate7() throws ParseException {
-		Instruction instruction = new Instruction("foo", true, 0.50, Instruction.AED, dateFormat.parse("23/Mar/2016"), dateFormat.parse("24/Mar/2018"), 200, 100.25);
+		Instruction instruction = new Instruction("foo", true, 0.50, Currency.AED, dateFormat.parse("23/Mar/2016"), dateFormat.parse("24/Mar/2018"), 200, 100.25);
 		assertEquals(instruction.getSettlementDate(), dateFormat.parse("25/Mar/2018"));
 	}
 	
 	@Test
 	public void testSettlementDate8() throws ParseException {
-		Instruction instruction = new Instruction("foo", true, 0.50, Instruction.AED, dateFormat.parse("23/Mar/2016"), dateFormat.parse("25/Mar/2018"), 200, 100.25);
+		Instruction instruction = new Instruction("foo", true, 0.50, Currency.AED, dateFormat.parse("23/Mar/2016"), dateFormat.parse("25/Mar/2018"), 200, 100.25);
 		assertEquals(instruction.getSettlementDate(), dateFormat.parse("25/Mar/2018"));
 	}
 	
@@ -80,9 +81,9 @@ public class TradeReportTest {
 		
 		List<Instruction> instructions = new ArrayList<>();
 		
-		instructions.add(new Instruction("foo", true, 0.50, Instruction.SGP, dateFormat.parse("23/Mar/2016"), dateFormat.parse("23/Mar/2018"), 200, 75));
-		instructions.add(new Instruction("bar", false, 0.50, Instruction.SGP, dateFormat.parse("23/Mar/2016"), dateFormat.parse("23/Mar/2018"), 200, 25));
-		instructions.add(new Instruction("baz", true, 0.50, Instruction.SGP, dateFormat.parse("23/Mar/2016"), dateFormat.parse("24/Mar/2018"), 100, 75));
+		instructions.add(new Instruction("foo", true, 0.50, Currency.SGP, dateFormat.parse("23/Mar/2016"), dateFormat.parse("23/Mar/2018"), 200, 75));
+		instructions.add(new Instruction("bar", false, 0.50, Currency.SGP, dateFormat.parse("23/Mar/2016"), dateFormat.parse("23/Mar/2018"), 200, 25));
+		instructions.add(new Instruction("baz", true, 0.50, Currency.SGP, dateFormat.parse("23/Mar/2016"), dateFormat.parse("24/Mar/2018"), 100, 75));
 		
 		
 		OutputData outputData =  Main.elab(instructions);
